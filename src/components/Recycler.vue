@@ -10,8 +10,10 @@
         <button disabled>Copy board</button>
         <button v-on:click="action = 'archive'">Archive all lists in board</button>
         <button disabled>Delete all archived in board</button>
+        <button v-on:click="action = 'move'">Move lists from board to another</button>
       </div>
       <Archiver v-if="action === 'archive'" :board="selectedBoard" :credentials="credentials"/>
+      <listsMover v-if="action === 'move'" :board="selectedBoard" :credentials="credentials" :boards="boards"/>
     </header>
   </section>
 </template>
@@ -19,10 +21,12 @@
 <script>
 import axios from 'axios'
 import Archiver from './Archiver'
+import listsMover from './listsMover'
 export default {
   name: 'Recycler',
   components: {
-    Archiver
+    Archiver,
+    listsMover
   },
   props: ['credentials'],
   data () {

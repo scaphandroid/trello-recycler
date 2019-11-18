@@ -31,16 +31,14 @@ export default {
   methods: {
     submitKeys: function () {
       this.error = false
-      let scope = this
       axios.get('https://api.trello.com/1/members/me/boards?key=' + this.credentials.key + '&token=' + this.credentials.token)
-        .then(function (response) {
+        .then((response) => {
           console.log(response)
-          scope.$emit('authorized', scope.credentials)
+          this.$emit('authorized', this.credentials)
         })
-        .catch(function (error) {
-          // handle error
+        .catch((error) => {
           console.log(error)
-          scope.error = true
+          this.error = true
         })
     }
   }

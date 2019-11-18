@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Authorizer v-if="!authorized"/>
+    <Authorizer v-if="!authorized" v-on:authorized="getCredentials"/>
     <Recycler v-else/>
   </div>
 </template>
@@ -17,9 +17,14 @@ export default {
   },
   data () {
     return {
-      key: '',
-      token: '',
+      credentials: {},
       authorized: false
+    }
+  },
+  methods: {
+    getCredentials: function (credentials) {
+      this.credentials = credentials
+      this.authorized = true
     }
   }
 }

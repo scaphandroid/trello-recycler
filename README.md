@@ -1,6 +1,14 @@
 # trello-recycler
 
-> Copy, clean and clear Trello Boards
+> Copy, clean and clear Trello's Boards and move multiple Trello's lists
+
+TODO :
+-[ ] use anonymous functions in axios promise
+-[ ] react on selected board change
+-[ ] move selected lists from a board to another
+-[ ] delete all archived items from a board
+-[ ] copy a board to another team
+-[ ] prevent api limits 
 
 ## Build Setup
 

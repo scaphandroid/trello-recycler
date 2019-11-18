@@ -3,36 +3,51 @@
     <header>
       <h1>Board Recycler</h1>
       <label for="board-select">Select board to clean</label>
-      <select id="board-select">
-        <option v-for="board in boards" :value="board.id">{{board.name}}</option>
+      <select id="board-select" v-model="selectedBoard" v-on:change="onBoardSelected">
+        <option v-for="board in boards" :value="board">{{board.name}}</option>
       </select>
       <div>
         <button disabled>Copy board</button>
-        <button>Archive all lists in board</button>
-        <button>Delete all archived in board</button>
+        <button v-on:click="action = 'archive'">Archive all lists in board</button>
+        <button disabled>Delete all archived in board</button>
       </div>
-      <div>
-        <i>{{status}}</i>
-      </div>
+      <Archiver v-if="action === 'archive'" :board="selectedBoard" :credentials="credentials"/>
     </header>
   </section>
 </template>
 
 <script>
 import axios from 'axios'
+import Archiver from './Archiver'
 export default {
   name: 'Recycler',
+  components: {
+    Archiver
+  },
+  props: ['credentials'],
   data () {
     return {
       boards: [],
-      status: '...',
-      msg: 'Welcome to Your Vue.js App'
+      selectedBoard: {},
+      action: ''
     }
+  },
+  mounted () {
+    this.getBoards()
   },
   methods: {
     getBoards: function () {
+      axios.get('https://api.trello.com/1/members/me/boards?key=' + this.credentials.key + '&token=' + this.credentials.token)
+        .then((response) => {
+          console.log(response)
+          this.boards = response.data
+        })
+        .catch((error) => {
+          alert(error)
+        })
     },
-    archiveAllLists: function () {
+    onBoardSelected: function () {
+      console.log(this.selectedBoard.name)
     },
     deleteAllArchived: function () {
     }

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Authorizer v-if="!authorized" v-on:authorized="getCredentials"/>
-    <Recycler v-else/>
+    <Recycler :credentials="credentials" v-else/>
   </div>
 </template>
 

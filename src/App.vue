@@ -1,17 +1,26 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <Authorizer v-if="!authorized"/>
+    <Recycler v-else/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Recycler from './components/Recycler'
+import Authorizer from './components/Authorizer'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Recycler,
+    Authorizer
+  },
+  data () {
+    return {
+      key: '',
+      token: '',
+      authorized: false
+    }
   }
 }
 </script>
